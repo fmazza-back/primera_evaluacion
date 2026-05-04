@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+// Implementación de la lógica de negocio para la gestión de pacientes
 @Service
 public class PacienteServiceImpl implements IPaciente {
 
@@ -23,6 +24,7 @@ public class PacienteServiceImpl implements IPaciente {
 
     @Override
     public Paciente obtenerPacientePorId(Long id) {
+        // Lanza excepción si el paciente no existe en el sistema
         return repository.findById(id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("Paciente no encontrado con id: " + id));
     }
@@ -34,6 +36,7 @@ public class PacienteServiceImpl implements IPaciente {
 
     @Override
     public Paciente actualizarPaciente(Long id, Paciente datos) {
+        // Verifica que el paciente exista antes de actualizar
         Paciente existente = obtenerPacientePorId(id);
         existente.setNombre(datos.getNombre());
         existente.setApellido(datos.getApellido());
@@ -44,6 +47,7 @@ public class PacienteServiceImpl implements IPaciente {
 
     @Override
     public void eliminarPaciente(Long id) {
+        // Verifica que el paciente exista antes de eliminar
         obtenerPacientePorId(id);
         repository.deleteById(id);
     }

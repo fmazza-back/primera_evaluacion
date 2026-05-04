@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+// Entidad que representa a un paciente de la clínica
 @Entity
 @Getter
 @Setter
@@ -24,6 +25,7 @@ public class Paciente {
 
     private String apellido;
 
+    // Documento Nacional de Identidad, debe ser único por paciente
     private String dni;
 
     private String email;

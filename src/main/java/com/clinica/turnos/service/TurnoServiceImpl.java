@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 
+// Implementación de la lógica de negocio para la gestión de turnos
 @Service
 public class TurnoServiceImpl implements ITurnos {
 
@@ -30,6 +31,7 @@ public class TurnoServiceImpl implements ITurnos {
 
     @Override
     public Turno crearTurno(Turno turno) {
+        // Valida que el turno tenga paciente y profesional informados
         if (turno.getPaciente() == null || turno.getPaciente().getId() == null) {
             throw new DatoInvalidoException("El turno debe tener un paciente válido");
         }
@@ -37,14 +39,17 @@ public class TurnoServiceImpl implements ITurnos {
             throw new DatoInvalidoException("El turno debe tener un profesional válido");
         }
 
+        // Verifica que el paciente exista en el sistema
         Paciente paciente = pacienteRepository.findById(turno.getPaciente().getId())
                 .orElseThrow(() -> new RecursoNoEncontradoException(
                         "Paciente no encontrado con id: " + turno.getPaciente().getId()));
 
+        // Verifica que el profesional exista en el sistema
         Profesional profesional = profesionalRepository.findById(turno.getProfesional().getId())
                 .orElseThrow(() -> new RecursoNoEncontradoException(
                         "Profesional no encontrado con id: " + turno.getProfesional().getId()));
 
+        // Evita registrar un turno duplicado para el mismo paciente, profesional y fecha
         if (turnoRepository.existsByPacienteAndProfesionalAndFecha(paciente, profesional, turno.getFecha())) {
             throw new DatoInvalidoException("Ya existe un turno para ese paciente, profesional y fecha");
         }
@@ -56,6 +61,7 @@ public class TurnoServiceImpl implements ITurnos {
 
     @Override
     public Turno obtenerTurnoPorId(Long id) {
+        // Lanza excepción si el turno no existe en el sistema
         return turnoRepository.findById(id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("Turno no encontrado con id: " + id));
     }
@@ -72,6 +78,7 @@ public class TurnoServiceImpl implements ITurnos {
 
     @Override
     public void eliminarTurno(Long id) {
+        // Verifica que el turno exista antes de eliminar
         obtenerTurnoPorId(id);
         turnoRepository.deleteById(id);
     }

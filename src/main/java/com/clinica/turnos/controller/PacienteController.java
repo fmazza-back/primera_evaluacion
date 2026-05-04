@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+// Controlador REST para la gestión de pacientes
 @RestController
 @RequestMapping("/pacientes")
 public class PacienteController {
@@ -18,21 +19,25 @@ public class PacienteController {
         this.service = service;
     }
 
+    // POST /pacientes → crea un nuevo paciente
     @PostMapping
     public ResponseEntity<Paciente> crear(@RequestBody Paciente paciente) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.crearPaciente(paciente));
     }
 
+    // GET /pacientes/{id} → retorna un paciente por su ID
     @GetMapping("/{id}")
     public ResponseEntity<Paciente> obtener(@PathVariable Long id) {
         return ResponseEntity.ok(service.obtenerPacientePorId(id));
     }
 
+    // GET /pacientes → retorna todos los pacientes
     @GetMapping
     public ResponseEntity<List<Paciente>> listar() {
         return ResponseEntity.ok(service.obtenerPacientes());
     }
 
+    // DELETE /pacientes/{id} → elimina un paciente por su ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         service.eliminarPaciente(id);

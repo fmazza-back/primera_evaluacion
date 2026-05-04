@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+// Entidad que representa a un profesional médico de la clínica
 @Entity
 @Getter
 @Setter
@@ -22,5 +23,6 @@ public class Profesional {
 
     private String nombreCompleto;
 
+    // Área médica en la que se desempeña el profesional
     private String especialidad;
 }

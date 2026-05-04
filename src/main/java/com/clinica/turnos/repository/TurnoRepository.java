@@ -9,10 +9,14 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.List;
 
+// Repositorio JPA para la entidad Turno
+// Hereda operaciones CRUD básicas de JpaRepository
 @Repository
 public interface TurnoRepository extends JpaRepository<Turno, Long> {
 
+    // Retorna todos los turnos registrados para una fecha determinada
     List<Turno> findByFecha(LocalDate fecha);
 
+    // Verifica si ya existe un turno con el mismo paciente, profesional y fecha (control de duplicados)
     boolean existsByPacienteAndProfesionalAndFecha(Paciente paciente, Profesional profesional, LocalDate fecha);
 }

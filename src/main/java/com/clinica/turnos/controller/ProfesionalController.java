@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+// Controlador REST para la gestión de profesionales médicos
 @RestController
 @RequestMapping("/profesionales")
 public class ProfesionalController {
@@ -18,11 +19,13 @@ public class ProfesionalController {
         this.service = service;
     }
 
+    // POST /profesionales → crea un nuevo profesional
     @PostMapping
     public ResponseEntity<Profesional> crear(@RequestBody Profesional profesional) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.crearProfesional(profesional));
     }
 
+    // GET /profesionales?especialidad=... → filtra profesionales por especialidad
     @GetMapping
     public ResponseEntity<List<Profesional>> listarPorEspecialidad(@RequestParam String especialidad) {
         return ResponseEntity.ok(service.obtenerProfesionalesPorEspecialidad(especialidad));
