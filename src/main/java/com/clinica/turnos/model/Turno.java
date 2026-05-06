@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.LocalDate;
 
+// Entidad que representa un turno médico entre un paciente y un profesional
 @Entity
 @Getter
 @Setter
@@ -23,10 +24,12 @@ public class Turno {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Relación muchos-a-uno: varios turnos pueden pertenecer a un mismo paciente
     @ManyToOne
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
 
+    // Relación muchos-a-uno: varios turnos pueden asignarse al mismo profesional
     @ManyToOne
     @JoinColumn(name = "profesional_id")
     private Profesional profesional;
