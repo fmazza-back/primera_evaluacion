@@ -7,6 +7,7 @@ import com.clinica.turnos.service.ITurnos;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,11 +23,9 @@ public class TurnoController {
 
     private static final Logger log = LoggerFactory.getLogger(TurnoController.class);
 
-    private final ITurnos service;
-
-    public TurnoController(ITurnos service) {
-        this.service = service;
-    }
+    // Spring inyecta la implementación de ITurnos registrada en el contexto (TurnoServiceImpl)
+    @Autowired
+    private ITurnos service;
 
     // POST /turnos → registra un nuevo turno (valida paciente, profesional y duplicados)
     @PostMapping

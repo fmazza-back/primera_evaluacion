@@ -11,6 +11,7 @@ import com.clinica.turnos.repository.ProfesionalRepository;
 import com.clinica.turnos.repository.TurnoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -22,17 +23,15 @@ public class TurnoServiceImpl implements ITurnos {
 
     private static final Logger log = LoggerFactory.getLogger(TurnoServiceImpl.class);
 
-    private final TurnoRepository turnoRepository;
-    private final PacienteRepository pacienteRepository;
-    private final ProfesionalRepository profesionalRepository;
+    // Spring inyecta automáticamente cada repositorio al iniciar el contexto de la aplicación
+    @Autowired
+    private TurnoRepository turnoRepository;
 
-    public TurnoServiceImpl(TurnoRepository turnoRepository,
-                             PacienteRepository pacienteRepository,
-                             ProfesionalRepository profesionalRepository) {
-        this.turnoRepository = turnoRepository;
-        this.pacienteRepository = pacienteRepository;
-        this.profesionalRepository = profesionalRepository;
-    }
+    @Autowired
+    private PacienteRepository pacienteRepository;
+
+    @Autowired
+    private ProfesionalRepository profesionalRepository;
 
     @Override
     public Turno crearTurno(TurnoRequestDTO dto) {
