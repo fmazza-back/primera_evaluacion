@@ -9,6 +9,7 @@ import com.clinica.turnos.service.IProfesional;
 import com.clinica.turnos.service.ITurnos;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -21,15 +22,15 @@ public class CargaInicialRunner implements CommandLineRunner {
 
     private static final Logger log = LoggerFactory.getLogger(CargaInicialRunner.class);
 
-    private final IPaciente pacienteService;
-    private final IProfesional profesionalService;
-    private final ITurnos turnoService;
+    // Spring inyecta automáticamente las implementaciones de cada interfaz de servicio
+    @Autowired
+    private IPaciente pacienteService;
 
-    public CargaInicialRunner(IPaciente pacienteService, IProfesional profesionalService, ITurnos turnoService) {
-        this.pacienteService = pacienteService;
-        this.profesionalService = profesionalService;
-        this.turnoService = turnoService;
-    }
+    @Autowired
+    private IProfesional profesionalService;
+
+    @Autowired
+    private ITurnos turnoService;
 
     @Override
     public void run(String... args) {

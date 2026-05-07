@@ -6,6 +6,7 @@ import com.clinica.turnos.service.IPaciente;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +20,9 @@ public class PacienteController {
 
     private static final Logger log = LoggerFactory.getLogger(PacienteController.class);
 
-    private final IPaciente service;
-
-    public PacienteController(IPaciente service) {
-        this.service = service;
-    }
+    // Spring inyecta la implementación de IPaciente registrada en el contexto (PacienteServiceImpl)
+    @Autowired
+    private IPaciente service;
 
     // POST /pacientes → crea un nuevo paciente
     @PostMapping

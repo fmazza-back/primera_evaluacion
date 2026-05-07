@@ -6,6 +6,7 @@ import com.clinica.turnos.service.IProfesional;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +20,9 @@ public class ProfesionalController {
 
     private static final Logger log = LoggerFactory.getLogger(ProfesionalController.class);
 
-    private final IProfesional service;
-
-    public ProfesionalController(IProfesional service) {
-        this.service = service;
-    }
+    // Spring inyecta la implementación de IProfesional registrada en el contexto (ProfesionalServiceImpl)
+    @Autowired
+    private IProfesional service;
 
     // POST /profesionales → crea un nuevo profesional
     @PostMapping

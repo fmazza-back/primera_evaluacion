@@ -5,6 +5,7 @@ import com.clinica.turnos.model.Paciente;
 import com.clinica.turnos.repository.PacienteRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,11 +16,9 @@ public class PacienteServiceImpl implements IPaciente {
 
     private static final Logger log = LoggerFactory.getLogger(PacienteServiceImpl.class);
 
-    private final PacienteRepository repository;
-
-    public PacienteServiceImpl(PacienteRepository repository) {
-        this.repository = repository;
-    }
+    // Spring inyecta automáticamente la implementación de PacienteRepository al iniciar el contexto
+    @Autowired
+    private PacienteRepository repository;
 
     @Override
     public Paciente crearPaciente(Paciente paciente) {

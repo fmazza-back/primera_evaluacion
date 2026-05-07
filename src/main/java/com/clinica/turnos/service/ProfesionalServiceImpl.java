@@ -5,6 +5,7 @@ import com.clinica.turnos.model.Profesional;
 import com.clinica.turnos.repository.ProfesionalRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,11 +16,9 @@ public class ProfesionalServiceImpl implements IProfesional {
 
     private static final Logger log = LoggerFactory.getLogger(ProfesionalServiceImpl.class);
 
-    private final ProfesionalRepository repository;
-
-    public ProfesionalServiceImpl(ProfesionalRepository repository) {
-        this.repository = repository;
-    }
+    // Spring inyecta automáticamente la implementación de ProfesionalRepository al iniciar el contexto
+    @Autowired
+    private ProfesionalRepository repository;
 
     @Override
     public Profesional crearProfesional(Profesional profesional) {
